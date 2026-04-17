@@ -1,12 +1,13 @@
 {
-  "name": "Utilisasi Warehouse - PT Dagsap",
+  "name": "Utilisasi Warehouse - PT Dagsap Endura Eatore",
   "short_name": "Utilisasi WH",
-  "description": "Sistem Manajemen Gudang Yogyakarta",
+  "description": "Sistem Manajemen Utilisasi Gudang Yogyakarta",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#4facfe",
+  "theme_color": "#2c3e50",
+  "lang": "id-ID",
   "icons": [
     {
       "src": "./icons/icon-192.png",
