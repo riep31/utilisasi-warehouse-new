@@ -1,6 +1,10 @@
-const CACHE_NAME = 'utilisasi-wh-spa-v1.1';
+// ========================================
+// PWA SERVICE WORKER - SPA VERSION
+// ========================================
 
-// Daftar semua file yang wajib ada untuk offline
+const CACHE_NAME = 'utilisasi-warehouse-v1.1.0';
+
+// Assets yang wajib di-cache untuk struktur SPA
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -10,7 +14,7 @@ const ASSETS_TO_CACHE = [
   './js/app.js',
   './js/services/api.js',
   './js/services/export.js',
-  // Potongan HTML (Views)
+  // Views (Potongan HTML)
   './views/dashboard.html',
   './views/rawmaterial.html',
   './views/finishgoods.html',
@@ -20,7 +24,7 @@ const ASSETS_TO_CACHE = [
   './views/floor.html',
   './views/rencana.html',
   './views/salahmuat.html',
-  // Logika JS (Pages)
+  // Pages (Logika JS)
   './js/pages/dashboard.js',
   './js/pages/rawmaterial.js',
   './js/pages/finishgoods.js',
@@ -50,19 +54,27 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  // JANGAN cache data dari Google Sheets (API) agar data selalu update
-  if (event.request.url.includes('googleapis.com')) {
-    return event.respondWith(fetch(event.request));
+  const url = new URL(event.request.url);
+
+  // STRATEGI: Google Sheets API - Selalu ambil dari Network (No Cache)
+  if (url.hostname === 'sheets.googleapis.com') {
+    event.respondWith(fetch(event.request));
+    return;
   }
 
-  // Untuk file statis, gunakan Cache First, lalu update di background (Stale-while-revalidate)
+  // STRATEGI: Stale-While-Revalidate untuk file statis lokal
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
       const fetchPromise = fetch(event.request).then(networkResponse => {
-        caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, networkResponse.clone());
-        });
+        if (networkResponse && networkResponse.status === 200) {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseClone);
+          });
+        }
         return networkResponse;
+      }).catch(() => {
+          // Jika offline dan tidak ada di cache, arahkan ke offline fallback jika perlu
       });
       return cachedResponse || fetchPromise;
     })
