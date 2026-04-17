@@ -1,0 +1,210 @@
+/* ============================================================================
+   1. GLOBAL VARIABLES & RESET
+   ============================================================================ */
+:root {
+    --primary-color: #2c3e50;
+    --accent-color: #3498db;
+    --success-color: #2ecc71;
+    --warning-color: #f1c40f;
+    --danger-color: #e74c3c;
+    --bg-light: #f8fafc;
+    --sidebar-width: 260px;
+    --sidebar-collapsed-width: 70px;
+    --text-main: #334155;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    overflow-x: hidden;
+}
+
+/* ============================================================================
+   2. SPA LAYOUT STRUCTURE
+   ============================================================================ */
+.app-shell {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR persistent */
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--primary-color);
+    color: white;
+    height: 100vh;
+    position: fixed;
+    transition: var(--transition);
+    z-index: 1000;
+}
+
+.sidebar.collapsed {
+    width: var(--sidebar-collapsed-width);
+}
+
+.main-container {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    transition: var(--transition);
+}
+
+.sidebar.collapsed + .main-container {
+    margin-left: var(--sidebar-collapsed-width);
+}
+
+/* TOP HEADER */
+.top-bar {
+    background: white;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 900;
+}
+
+/* ============================================================================
+   3. COMPONENTS (TABLES, CARDS, BUTTONS)
+   ============================================================================ */
+/* Modern Table */
+.table-wrapper {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th {
+    background: #f1f5f9;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 14px;
+}
+
+tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Row Special Status */
+.row-minus { background-color: #fff5f5; color: var(--danger-color); }
+.row-warning { background-color: #fffbeb; }
+
+/* Buttons */
+.btn-primary {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* Stats Card (Dashboard) */
+.chart-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.chart-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+/* ============================================================================
+   4. MODULE SPECIFIC (MAPPING & FLOOR)
+   ============================================================================ */
+/* Grid untuk Mapping Gudang */
+.rack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+    padding: 20px;
+    background: #0f172a; /* Dark mode style for mapping */
+    border-radius: 8px;
+}
+
+.rack-slot {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #334155;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.slot-filled { background: var(--danger-color); color: white; }
+.slot-empty { background: var(--success-color); color: white; }
+
+/* ============================================================================
+   5. UTILITIES
+   ============================================================================ */
+.loading {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+    font-style: italic;
+    color: #64748b;
+}
+
+.alert-box {
+    padding: 15px;
+    background: #fee2e2;
+    border-left: 5px solid var(--danger-color);
+    margin: 20px;
+    border-radius: 4px;
+}
+
+/* Search bar styling */
+.toolbar {
+    display: flex;
+    gap: 15px;
+    padding: 0 20px;
+    margin-top: 20px;
+}
+
+input[type="text"], select {
+    padding: 10px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    outline: none;
+}
+
+input[type="text"]:focus {
+    border-color: var(--accent-color);
+}
