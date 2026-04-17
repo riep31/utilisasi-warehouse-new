@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Utilisasi Warehouse</title>
     
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="./manifest.json">
     
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
     
     <style>
         body {
@@ -90,85 +90,6 @@
                 localStorage.setItem('userName', u);
                 // Gunakan ./ agar path tetap di direktori yang sama
                 window.location.href = './app.html';
-            } else {
-                alert('Login Gagal! Gunakan admin/12345');
-            }
-        };
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Utilisasi Warehouse</title>
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-        }
-        .login-card {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-        .login-card h2 { margin-bottom: 20px; color: #2c3e50; }
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-top: 5px;
-        }
-        .btn-login {
-            width: 100%;
-            padding: 12px;
-            background: #3498db;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-    <div class="login-card">
-        <h2>?? Warehouse System</h2>
-        <form id="loginForm">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" id="username" required placeholder="Masukkan username">
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" id="password" required placeholder="Masukkan password">
-            </div>
-            <button type="submit" class="btn-login">MASUK</button>
-        </form>
-    </div>
-
-    <script>
-        document.getElementById('loginForm').onsubmit = (e) => {
-            e.preventDefault();
-            const u = document.getElementById('username').value;
-            const p = document.getElementById('password').value;
-
-            // Logika login sederhana (sesuaikan dengan kebutuhan)
-            if(u === 'admin' && p === '12345') {
-                localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('userName', u);
-                window.location.href = 'app.html';
             } else {
                 alert('Login Gagal! Gunakan admin/12345');
             }
