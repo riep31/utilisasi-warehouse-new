@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utilisasi Warehouse System</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <h3>UTILISASI WAREHOUSE</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item">?? Dashboard</a>
+                <div class="nav-label">Inventory</div>
+                <a href="#rawmaterial" class="nav-item">?? Raw Material</a>
+                <a href="#finishgoods" class="nav-item">? Finish Goods</a>
+                <a href="#cardstock" class="nav-item">?? Card Stock</a>
+                
+                <div class="nav-label">Warehouse</div>
+                <a href="#kapasitas" class="nav-item">?? Kapasitas Gudang</a>
+                <a href="#mapping" class="nav-item">?? Mapping Rack</a>
+                <a href="#floor" class="nav-item">?? Mapping Floor</a>
+                
+                <div class="nav-label">Reports</div>
+                <a href="#rencana" class="nav-item">?? Rencana Kedatangan</a>
+                <a href="#salahmuat" class="nav-item">?? Report Salah Muat</a>
+                
+                <hr>
+                <a href="#" id="btnLogout" class="nav-item logout">?? Keluar</a>
+            </nav>
+        </aside>
+
+        <main class="main-container">
+            <header class="top-bar">
+                <div class="header-left">
+                    <button id="toggleSidebar" class="btn-icon">?</button>
+                    <h2 id="page-title">Dashboard</h2>
+                </div>
+                <div class="header-right">
+                    <span id="current-time"></span>
+                    <div class="user-info">
+                        Halo, <strong id="user-display">Admin</strong>
+                    </div>
+                </div>
+            </header>
+
+            <section id="app-content" class="content-area">
+                </section>
+        </main>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+    
+    <script>
+        // Keamanan: Cek Login
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'index.html';
+        }
+
+        // Logout
+        document.getElementById('btnLogout').onclick = (e) => {
+            e.preventDefault();
+            localStorage.clear();
+            window.location.href = 'index.html';
+        };
+
+        // Update Waktu
+        setInterval(() => {
+            document.getElementById('current-time').innerText = new Date().toLocaleString('id-ID');
+        }, 1000);
+
+        // Toggle Sidebar
+        document.getElementById('toggleSidebar').onclick = () => {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+        };
+
+  // Registrasi Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js')
+        .then(reg => console.log('PWA: Service Worker Aktif'))
+        .catch(err => console.log('PWA: Gagal aktif', err));
+    });
+  }
+
+  // Cek jika masuk dari Shortcut PWA (Hapus Hash jika perlu)
+  window.addEventListener('DOMContentLoaded', () => {
+    const user = localStorage.getItem('isLoggedIn');
+    if (user !== 'true') {
+      window.location.href = 'index.html';
+    }
+  });
+</script>
+</body>
+</html>
