@@ -1,6 +1,6 @@
 export const CONFIG = {
     SPREADSHEET_ID: '1ngP7PTE4mNKtkcTQU5sRYswdYmdC401M4ioxxkt-Hxw',
-    API_KEY: ''AIzaSyD3nhZyvd7npQw6n9mPXxOA6svJdo_JQis',
+   
 };
 
 export async function fetchSheetData(range) {
